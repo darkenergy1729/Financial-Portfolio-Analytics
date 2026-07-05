@@ -1,0 +1,9 @@
+Ticker,Company,Sector,Allocation (%),Investment Amount,Purchase Price,Shares Purchased
+AAPL,Apple,Technology,20,200000.0,125.74,1590.5733
+AMZN,Amazon,Consumer Discretionary,10,100000.0,159.33,627.6223
+BRK-B,Berkshire Hathaway,Financials,10,100000.0,228.45,437.7326
+GOOGL,Alphabet,Communication Services,10,100000.0,85.55,1168.9353
+JPM,JPMorgan Chase,Financials,10,100000.0,109.49,913.3124
+MSFT,Microsoft,Technology,15,150000.0,207.96,721.3059
+NVDA,NVIDIA,Technology,15,150000.0,13.06,11484.7511
+TSLA,Tesla,Consumer Discretionary,10,100000.0,243.26,411.0884
