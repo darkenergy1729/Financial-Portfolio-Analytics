@@ -249,19 +249,19 @@ The project includes SQL analysis covering:
 
 ## Dashboard 1 – Portfolio Overview
 
-![Dashboard 1](dashboards/Dashboard1.png)
+![Dashboard 1](dashboards/Dashboard1.jpg)
 
 ---
 
 ## Dashboard 2 – Portfolio Performance
 
-![Dashboard 2](dashboards/Dashboard2.png)
+![Dashboard 2](dashboards/Dashboard2.jpg)
 
 ---
 
 ## Dashboard 3 – Stock Performance Analysis
 
-![Dashboard 3](dashboards/Dashboard3.png)
+![Dashboard 3](dashboards/Dashboard3.jpg)
 
 ---
 
