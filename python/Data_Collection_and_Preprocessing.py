@@ -64,15 +64,9 @@ END_DATE = "2026-01-01"
 # Download Historical Stock Data
 # =========================================================
 
-print("=" * 60)
-print("Downloading Historical Stock Data")
-print("=" * 60)
-
 stock_frames = []
 
 for ticker, info in STOCKS.items():
-
-    print(f"Downloading {ticker}...")
 
     stock_df = yf.download(
         ticker,
@@ -83,7 +77,7 @@ for ticker, info in STOCKS.items():
         group_by="column",
     )
 
-    # Flatten MultiIndex Columns
+    # Flatten MultiIndex columns if present
     if isinstance(stock_df.columns, pd.MultiIndex):
         stock_df.columns = stock_df.columns.get_level_values(0)
 
@@ -96,7 +90,7 @@ for ticker, info in STOCKS.items():
     stock_frames.append(stock_df)
 
 # =========================================================
-# Combine All Stocks
+# Combine All Stock Data
 # =========================================================
 
 stock_data = pd.concat(stock_frames, ignore_index=True)
@@ -125,63 +119,49 @@ stock_data.to_csv(
     index=False,
 )
 
-print("\nRaw stock dataset saved successfully.")
-
 # =========================================================
 # Data Quality Assessment
 # =========================================================
 
-print("\n" + "=" * 60)
-print("DATA QUALITY ASSESSMENT")
-print("=" * 60)
+# Dataset Information
+stock_data.info()
 
-print(f"\nDataset Shape : {stock_data.shape}")
+# Missing Values
+stock_data.isnull().sum()
 
-print("\nDataset Information")
-print(stock_data.info())
+# Duplicate Records
+stock_data.duplicated().sum()
 
-print("\nMissing Values")
-print(stock_data.isnull().sum())
+# Summary Statistics
+stock_data.describe()
 
-print("\nDuplicate Rows")
-print(stock_data.duplicated().sum())
+# Date Range
+stock_data["Date"].min()
+stock_data["Date"].max()
 
-print("\nSummary Statistics")
-print(stock_data.describe())
+# Records per Stock
+stock_data.groupby("Ticker").size()
 
-print("\nDate Range")
-print("Start Date :", stock_data["Date"].min())
-print("End Date   :", stock_data["Date"].max())
+# Check for Negative Prices
+(
+    stock_data[
+        ["Open", "High", "Low", "Close", "Adj Close"]
+    ] <= 0
+).sum()
 
-print("\nRecords per Stock")
-print(stock_data.groupby("Ticker").size())
-
-print("\nNegative Prices")
-print(
-    (
-        stock_data[
-            ["Open", "High", "Low", "Close", "Adj Close"]
-        ] <= 0
-    ).sum()
-)
-
-print("\nNegative Volume")
-print((stock_data["Volume"] < 0).sum())
+# Check for Negative Volume
+(stock_data["Volume"] < 0).sum()
 
 # =========================================================
 # Data Cleaning
 # =========================================================
-
-print("\n" + "=" * 60)
-print("DATA CLEANING")
-print("=" * 60)
 
 clean_data = stock_data.copy()
 
 # Remove duplicate rows
 clean_data.drop_duplicates(inplace=True)
 
-# Sort values
+# Sort by Ticker and Date
 clean_data.sort_values(
     by=["Ticker", "Date"],
     inplace=True,
@@ -202,8 +182,4 @@ clean_data.to_csv(
     index=False,
 )
 
-print("\nClean dataset saved successfully.")
-
-print("\nFinal Dataset Shape :", clean_data.shape)
-
-print("\nProcess Completed Successfully.")
+print("Data collection and preprocessing completed successfully.")
